@@ -8,7 +8,7 @@ import {icons} from '../assets/icons';
 import {query} from '../api/serviceCall';
 import { NavBar } from '../components';
 
-export const SearchPageScreen: React.FC = () => {
+export const SearchPageScreen: React.FC = ({navigation}) => {
     const [latitude, setLatitude] = useState(0);
     const [longitude, setLongitude] = useState(0);
     // const [forecast, setForecast] = useState<weatherResponse>();
@@ -58,9 +58,10 @@ export const SearchPageScreen: React.FC = () => {
         if(search !== ''){
             const result = await query(search);
             if(result?.cod === 200) {
+                navigation.navigate('Weather', {data: result});
             } else {
                 Toast.show({
-                    text: `Service Error Occurred`,
+                    text: `Error occurred: ${result?.message}`,
                     type: "danger",
                     duration: 3000
                 });
@@ -79,7 +80,7 @@ export const SearchPageScreen: React.FC = () => {
 
     return (
         <View style={styles.container}>
-            <NavBar/>
+            <NavBar navigation={navigation}/>
             <View style={{alignItems:"center", marginTop: 60}}>
                 <Image
                     source={icons.weather.light}
@@ -88,8 +89,10 @@ export const SearchPageScreen: React.FC = () => {
                 <View style={{margin: 20}}>
                 {/*<FlatList data={forecast?.list} style={{marginTop:20}} keyExtractor={item => item?.dt_txt} renderItem={({item}) => <ForecastCard detail={item} location={forecast?.city?.name} />} />*/}
                     <SearchBar
+                        inputContainerStyle={{backgroundColor: '#FFF'}}
+                        containerStyle={{backgroundColor: '#ADD8E6'}}
                         platform={"ios"}
-                        placeholder="Enter Zipcode..."
+                        placeholder=" Enter Zipcode..."
                         onChangeText={updateSearch}
                         showLoading={loading}
                         value={search}
@@ -114,6 +117,6 @@ export const SearchPageScreen: React.FC = () => {
 const styles = {
   container: {
     flex: 1,
-    backgroundColor: '#fff'
+    backgroundColor: '#ADD8E6'
   },
 };
