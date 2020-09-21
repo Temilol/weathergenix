@@ -1,14 +1,6 @@
 import {API_KEY} from '../constants/Strings'
-import { querySuccessResponse, queryErrorResponse } from '../types';
+import {querySuccessResponse, queryErrorResponse} from '../types';
 import moment from 'moment';
-
-export const getLocation = () => {
-    navigator.geolocation.getCurrentPosition(
-        (position) => {
-            
-        }
-    )
-}
 
 export const query = async(search: string): Promise<querySuccessResponse|queryErrorResponse> => {
     const url = `https://api.openweathermap.org/data/2.5/weather?zip=${search},us&appid=${API_KEY}&units=imperial`;
@@ -34,7 +26,7 @@ export const degToCompass = (num: number): string => {
     return arr[val];
 }
 
-export const hPaToinHg = (hpa: number): number => {
+export const hPaToinHg = (hpa: number): string => {
     var val = (hpa *100)/3386
     return val.toFixed(2);
 }

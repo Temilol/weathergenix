@@ -4,19 +4,6 @@ export type RootStackParamList = {
   Weather: undefined;
 };
 
-export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-};
-
-export type TabOneParamList = {
-  TabOneScreen: undefined;
-};
-
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
-};
-
 export interface querySuccessResponse {
   id: number,
   cod: number;
