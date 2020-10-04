@@ -1,9 +1,27 @@
+import _ from 'lodash';
+import moment from 'moment';
+import {Toast} from 'native-base';
 import {API_KEY} from '../constants/Strings'
 import {querySuccessResponse, queryErrorResponse} from '../types';
-import moment from 'moment';
 
-export const query = async(search: string): Promise<querySuccessResponse|queryErrorResponse> => {
-    const url = `https://api.openweathermap.org/data/2.5/weather?zip=${search},us&appid=${API_KEY}&units=imperial`;
+export const getForecast = async(search: string, navigation: any) => {
+    if(search !== ''){
+        const result = await query(search);
+        if(result?.cod === 200) {
+            navigation.navigate('Weather', {data: result});
+        } else {
+            Toast.show({
+                text: `Error occurred: ${result?.message}`,
+                type: "danger",
+                duration: 3000
+            });
+        }
+    }
+}
+
+const query = async(search: string): Promise<querySuccessResponse|queryErrorResponse> => {
+    search= _.replace(search, 'USA', 'us');
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${search}&appid=${API_KEY}&units=imperial`;
     try {
         const response = await fetch(url);
         let responseJson: querySuccessResponse = await response?.json();

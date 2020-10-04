@@ -3,7 +3,7 @@ import {Header} from 'react-native-elements';
 import { APP_NAME } from '../constants/Strings';
 import { Image, Icon } from 'native-base';
 
-export const NavBar = ({navigation}) => {
+const NavBar = ({navigation}) => {
     const RightComponent = () => {
         return (
             <Icon name='home' style={styles.iconStyle} onPress={()=>{navigation.navigate('Home')}} />
@@ -18,6 +18,8 @@ export const NavBar = ({navigation}) => {
         />
     )
 }
+
+export default NavBar;
 
 const styles = {
     iconStyle: {

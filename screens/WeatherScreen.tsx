@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import {View, Text, Image, ScrollView} from 'react-native';
 import {Card} from 'react-native-elements';
 import {NavBar} from '../components';
@@ -6,7 +6,12 @@ import _ from 'lodash';
 import {getIcon, degToCompass, hPaToinHg, dayOfWeek} from '../api/serviceCall';
 import moment from 'moment';
 
-const WeatherScreen = (props) => {
+interface WeatherScreenProps {
+    route: any;
+    navigation: any;
+}
+
+const WeatherScreen:FC<WeatherScreenProps> = (props) => {
     const {
         route,
         navigation,
@@ -16,7 +21,7 @@ const WeatherScreen = (props) => {
     const {temp, feels_like, temp_max, pressure, humidity} = main || {};
     const {description, icon} = _.head(weather) || {};
     const title = _.head(weather)?.main || '';
-    const {sunrise, sunset} = sys || {};
+    const {sunrise, sunset, country} = sys || {};
     const {speed, deg} = wind || {};
     const {lat, lon} = coord || {};
 
@@ -25,7 +30,7 @@ const WeatherScreen = (props) => {
             <NavBar navigation={navigation}/>
             <ScrollView style={{marginVertical: 50, flex: 1}}>
                 <View style={{alignItems: "center", justifyContent: "center"}}>
-                    <Text style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}>{`${name}`}</Text>
+                    <Text style={{fontSize: 25, fontWeight: 'bold', marginTop: 10}}>{`${name}, ${country}`}</Text>
                     <Image style={{width:100, height:100}} source={{uri: getIcon(icon)}}/>
                     <Text style={{fontSize: 18, marginTop: -15, marginBottom: 10}}>{`${_.capitalize(description)}`}</Text>
                     <View style={{flexDirection: 'row', marginBottom: 10}}>

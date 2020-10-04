@@ -4,8 +4,7 @@ import * as React from 'react';
 import {ColorSchemeName} from 'react-native';
 import {RootStackParamList} from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
-import {SearchPageScreen} from '../screens/SearchPageScreen';
-import WeatherScreen from '../screens/WeatherScreen';
+import {SearchPageScreen, WeatherScreen} from '../screens';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
